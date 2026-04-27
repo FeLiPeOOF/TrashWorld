@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class LevelFlowManager : MonoBehaviour
 {
     private const string MainMenuSceneName = "MainMenu";
+    private const string FirstLevelSceneName = "Level01";
 
     private GameObject gameOverPanel;
     private GameObject levelSucceededPanel;
@@ -118,9 +119,15 @@ public class LevelFlowManager : MonoBehaviour
             "Game Completed!",
             new[]
             {
-                new PanelButtonData("Replay", RetryLevel),
+                new PanelButtonData("Replay", ReplayGame),
                 new PanelButtonData("Main Menu", GoToMainMenu)
             });
+    }
+
+    public void ReplayGame()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(FirstLevelSceneName);
     }
 
     private void EnsureWaveLabel()
