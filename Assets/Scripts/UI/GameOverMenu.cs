@@ -3,16 +3,44 @@ using UnityEngine.SceneManagement;
 
 public class GameOverMenu : MonoBehaviour
 {
+    public static GameOverMenu Instance { get; private set; }
+
     public GameObject gameOverPanel;
 
-    void Start()
+    private void Awake()
     {
-        gameOverPanel.SetActive(false);
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
+
+    private void Start()
+    {
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(false);
+        }
     }
 
     public void ShowGameOver()
     {
-        gameOverPanel.SetActive(true);
+        LevelFlowManager levelFlow = FindFirstObjectByType<LevelFlowManager>();
+
+        if (levelFlow != null)
+        {
+            levelFlow.ShowGameOver();
+            return;
+        }
+
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(true);
+        }
+
         Time.timeScale = 0f;
     }
 

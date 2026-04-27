@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,11 +7,11 @@ public class HealthBar : MonoBehaviour
 
     public void SetHealth(float value)
     {
-        fillImage.fillAmount = value;
-    }
+        if (fillImage == null)
+        {
+            return;
+        }
 
-    internal void SetMaxHealth(int maxHealth)
-    {
-        throw new NotImplementedException();
+        fillImage.fillAmount = Mathf.Clamp01(value);
     }
 }
