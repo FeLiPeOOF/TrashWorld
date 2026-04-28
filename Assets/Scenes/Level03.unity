@@ -2175,6 +2175,8 @@ MonoBehaviour:
   currentHealth: 0
   healthBar: {fileID: 0}
   gameOverMenu: {fileID: 0}
+  damageFlashDuration: 0.5
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
   enableDebugDamage: 1
   debugDamageAmount: 10
 --- !u!212 &1171995038
@@ -2558,7 +2560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc21ff8524407402e9778475726107f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pausePanel: {fileID: 0}
+  pausePanel: {fileID: 63301006}
 --- !u!4 &1748676900
 Transform:
   m_ObjectHideFlags: 0
