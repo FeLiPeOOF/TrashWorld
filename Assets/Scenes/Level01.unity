@@ -2645,6 +2645,9 @@ MonoBehaviour:
   currentHealth: 0
   healthBar: {fileID: 1282509979}
   gameOverMenu: {fileID: 0}
+  blinkDuration: 0.15
+  blinkCount: 3
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
   enableDebugDamage: 1
   debugDamageAmount: 10
 --- !u!114 &1802633002

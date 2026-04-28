@@ -9,7 +9,14 @@ public class PauseMenu : MonoBehaviour
 
     void Start()
     {
-        pausePanel.SetActive(false);
+        if (pausePanel != null)
+        {
+            pausePanel.SetActive(false);
+        }
+        else
+        {
+            Debug.LogWarning("[PauseMenu] pausePanel is not assigned in the Inspector!");
+        }
         Time.timeScale = 1f;
     }
 
@@ -23,16 +30,27 @@ public class PauseMenu : MonoBehaviour
 
     public void TogglePause()
     {
-        isPaused = !isPaused;
+        if (pausePanel == null)
+        {
+            Debug.LogError("[PauseMenu] Cannot toggle pause: pausePanel is not assigned in the Inspector!");
+            return;
+        }
 
-        pausePanel.SetActive(isPaused);
+        isPaused = !isPaused;
+        float startTime = Time.realtimeSinceStartup;
         Time.timeScale = isPaused ? 0f : 1f;
+        pausePanel.SetActive(isPaused);
+        float elapsed = Time.realtimeSinceStartup - startTime;
+        Debug.Log($"[PauseMenu] TogglePause took {elapsed * 1000f:F2}ms - Time.timeScale = {Time.timeScale}");
     }
 
     public void ResumeGame()
     {
         isPaused = false;
-        pausePanel.SetActive(false);
+        if (pausePanel != null)
+        {
+            pausePanel.SetActive(false);
+        }
         Time.timeScale = 1f;
     }
 
