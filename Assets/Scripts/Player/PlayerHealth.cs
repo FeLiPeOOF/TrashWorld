@@ -10,8 +10,7 @@ public class PlayerHealth : MonoBehaviour
     public GameOverMenu gameOverMenu;
 
     [Header("Damage Animation")]
-    public float blinkDuration = 0.15f;
-    public int blinkCount = 3;
+    public float damageFlashDuration = 0.5f;
     public Color damageColor = Color.red;
 
     [Header("Debug")]
@@ -78,13 +77,9 @@ public class PlayerHealth : MonoBehaviour
 
     private IEnumerator BlinkRed()
     {
-        for (int i = 0; i < blinkCount; i++)
-        {
-            spriteRenderer.color = damageColor;
-            yield return new WaitForSeconds(blinkDuration);
-            spriteRenderer.color = originalColor;
-            yield return new WaitForSeconds(blinkDuration);
-        }
+        spriteRenderer.color = damageColor;
+        yield return new WaitForSeconds(damageFlashDuration);
+        spriteRenderer.color = originalColor;
     }
 
     public void HealToFull()
