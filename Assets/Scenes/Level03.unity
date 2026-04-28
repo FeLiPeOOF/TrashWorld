@@ -1991,6 +1991,13 @@ MonoBehaviour:
   timeBetweenWaves: 1.5
   spawnHeight: -1.7
   enemySprite: {fileID: 21300000, guid: bd186ec297c2343318e91f61d9d627ed, type: 3}
+  enemyWalkFrames:
+  - {fileID: 21300000, guid: bd186ec297c2343318e91f61d9d627ed, type: 3}
+  - {fileID: 21300000, guid: 4120027bc4b284e0c92e22e483531a90, type: 3}
+  enemyAttackFrames:
+  - {fileID: 21300000, guid: 3aa2270bb0ceb498db578463b49c848c, type: 3}
+  enemyDeathFrames:
+  - {fileID: 21300000, guid: ddaea64339d2b40439236b4f1b01ce41, type: 3}
   enemyScale: 2.2
 --- !u!4 &1135779739
 Transform:

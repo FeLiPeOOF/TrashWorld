@@ -33,6 +33,13 @@ public class EnemySpriteAnimator : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    public void SetFrames(Sprite[] walk, Sprite[] attack, Sprite[] death)
+    {
+        if (walk != null && walk.Length > 0) walkFrames = walk;
+        if (attack != null && attack.Length > 0) attackFrames = attack;
+        if (death != null && death.Length > 0) deathFrames = death;
+    }
+
     private void LoadDefaultFrames()
     {
 #if UNITY_EDITOR
@@ -61,6 +68,14 @@ public class EnemySpriteAnimator : MonoBehaviour
             };
         }
 #endif
+    }
+
+    private void Start()
+    {
+        if (walkFrames == null || walkFrames.Length == 0)
+        {
+            Debug.LogWarning("[EnemySpriteAnimator] No walk frames assigned! Animations won't work.");
+        }
     }
 
     private void Update()

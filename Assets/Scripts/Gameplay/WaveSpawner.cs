@@ -23,6 +23,9 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField] private float timeBetweenWaves = 1.5f;
     [SerializeField] private float spawnHeight = -1.7f;
     [SerializeField] private Sprite enemySprite;
+    [SerializeField] private Sprite[] enemyWalkFrames;
+    [SerializeField] private Sprite[] enemyAttackFrames;
+    [SerializeField] private Sprite[] enemyDeathFrames;
     [SerializeField] private float enemyScale = 3.5f;
 
     private static Sprite fallbackEnemySprite;
@@ -130,7 +133,8 @@ public class WaveSpawner : MonoBehaviour
         rb.freezeRotation = true;
 
         EnemyController enemy = enemyObject.AddComponent<EnemyController>();
-        enemyObject.AddComponent<EnemySpriteAnimator>();
+        EnemySpriteAnimator animator = enemyObject.AddComponent<EnemySpriteAnimator>();
+        animator.SetFrames(enemyWalkFrames, enemyAttackFrames, enemyDeathFrames);
         enemy.Initialize(playerHealth, this);
         aliveEnemies.Add(enemy);
     }
