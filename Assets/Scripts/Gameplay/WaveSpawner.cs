@@ -22,6 +22,7 @@ public class WaveSpawner : MonoBehaviour
     };
     [SerializeField] private float timeBetweenWaves = 1.5f;
     [SerializeField] private float spawnHeight = -1.7f;
+    [SerializeField] private List<Transform> spawnPoints = new List<Transform>();
     [SerializeField] private Sprite enemySprite;
     [SerializeField] private Sprite[] enemyWalkFrames;
     [SerializeField] private Sprite[] enemyAttackFrames;
@@ -38,6 +39,24 @@ public class WaveSpawner : MonoBehaviour
 
     public int TotalWaves => waves.Count;
     public int CurrentWaveNumber => Mathf.Clamp(currentWaveIndex + 1, 0, TotalWaves);
+
+    public void SetSpawnPoints(IEnumerable<Transform> sceneSpawnPoints)
+    {
+        spawnPoints.Clear();
+
+        if (sceneSpawnPoints == null)
+        {
+            return;
+        }
+
+        foreach (Transform spawnPoint in sceneSpawnPoints)
+        {
+            if (spawnPoint != null)
+            {
+                spawnPoints.Add(spawnPoint);
+            }
+        }
+    }
 
     private void OnValidate()
     {
@@ -141,6 +160,12 @@ public class WaveSpawner : MonoBehaviour
 
     private Vector3 GetSpawnPosition()
     {
+        Transform configuredSpawnPoint = GetRandomSpawnPoint();
+        if (configuredSpawnPoint != null)
+        {
+            return configuredSpawnPoint.position;
+        }
+
         if (groundCollider != null)
         {
             Bounds bounds = groundCollider.bounds;
@@ -164,6 +189,30 @@ public class WaveSpawner : MonoBehaviour
 
         float fallbackX = Random.Range(-7f, 7f);
         return new Vector3(fallbackX, spawnHeight, 0f);
+    }
+
+    private Transform GetRandomSpawnPoint()
+    {
+        if (spawnPoints.Count == 0)
+        {
+            return null;
+        }
+
+        List<Transform> validSpawnPoints = new List<Transform>();
+        foreach (Transform spawnPoint in spawnPoints)
+        {
+            if (spawnPoint != null)
+            {
+                validSpawnPoints.Add(spawnPoint);
+            }
+        }
+
+        if (validSpawnPoints.Count == 0)
+        {
+            return null;
+        }
+
+        return validSpawnPoints[Random.Range(0, validSpawnPoints.Count)];
     }
 
     private Vector3 GetGroundedSpawnPosition(float xPosition, BoxCollider2D collider)
